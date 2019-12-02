@@ -1,12 +1,18 @@
+import 'package:ccc_rcm/screen/queueDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Custom_Icons.dart';
 import 'data.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
       debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        '/screen1': (BuildContext context) => new MyApp(),
+        '/screen2': (BuildContext context) => new QueueDetails()
+      },
     ));
 
 class MyApp extends StatefulWidget {
@@ -119,7 +125,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Widget _queueBox(int index) {
       return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      QueueDetails(queue: '${queue[index]}', index: index)));
+        },
         child: Padding(
           padding: const EdgeInsets.only(left: 0),
           child: Container(
@@ -163,9 +175,9 @@ class _MyAppState extends State<MyApp> {
                                     data[queue[index]]['ACR'].toString()) *
                                 100);
                             _currentDate = data[queue[index]]['Time'];
-//                              print(double.parse(
-//                                      data[queue[index]]['ACR'].toString()) *
-//                                  100);
+                            //  print(double.parse(
+                            //          data[queue[index]]['ACR'].toString()) *
+                            //      100);
 
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -188,7 +200,7 @@ class _MyAppState extends State<MyApp> {
                                       line[index],
                                       style: TextStyle(
                                           fontFamily: "Montserrat-Medium",
-                                          fontSize: 15,
+                                          fontSize: 14,
                                           color: Colors.white),
                                     ),
                                   ),
@@ -203,7 +215,7 @@ class _MyAppState extends State<MyApp> {
                                         "ACR",
                                         style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 15.0,
+                                            fontSize: 12.0,
                                             fontFamily: "Tribuchet"),
                                         textAlign: TextAlign.left,
                                       ),
@@ -218,7 +230,7 @@ class _MyAppState extends State<MyApp> {
                                                     acr[index])
                                                 ? Colors.black54
                                                 : Colors.redAccent,
-                                            fontSize: 15.0,
+                                            fontSize: 12.0,
                                             fontFamily: "Montserrat-Medium"),
                                       ),
                                     ],
@@ -234,7 +246,7 @@ class _MyAppState extends State<MyApp> {
                                         "SLA 20",
                                         style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 15.0,
+                                            fontSize: 12.0,
                                             fontFamily: "Tribuchet"),
                                         textAlign: TextAlign.left,
                                       ),
@@ -249,7 +261,7 @@ class _MyAppState extends State<MyApp> {
                                                     80)
                                                 ? Colors.black54
                                                 : Colors.redAccent,
-                                            fontSize: 15.0,
+                                            fontSize: 12.0,
                                             fontFamily: "Montserrat-Medium"),
                                       ),
                                     ],
@@ -265,7 +277,7 @@ class _MyAppState extends State<MyApp> {
                                         'CALL',
                                         style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 15.0,
+                                            fontSize: 12.0,
                                             fontFamily: "Tribuchet"),
                                         textAlign: TextAlign.left,
                                       ),
@@ -275,7 +287,7 @@ class _MyAppState extends State<MyApp> {
                                             '${data[queue[index]]['Abandoned'] - data[queue[index]]['AbandonedThres']}',
                                             style: TextStyle(
                                                 color: Colors.black54,
-                                                fontSize: 15.0,
+                                                fontSize: 12.0,
                                                 fontFamily:
                                                     "Montserrat-Medium"),
                                           ),
@@ -283,7 +295,7 @@ class _MyAppState extends State<MyApp> {
                                             '/${data[queue[index]]['Entered'].toString()}',
                                             style: TextStyle(
                                                 color: _currentColor,
-                                                fontSize: 15.0,
+                                                fontSize: 12.0,
                                                 fontFamily:
                                                     "Montserrat-Medium"),
                                           ),
@@ -373,7 +385,13 @@ class _MyAppState extends State<MyApp> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.tune),
+              icon: IconButton(
+                iconSize: 30.0,
+                icon: Icon(Icons.access_alarms, color: Colors.black54),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/screen2');
+                },
+              ),
               title: Container(
                 height: 0.0,
               )),
@@ -403,40 +421,10 @@ class _MyAppState extends State<MyApp> {
             size: 35.0,
             color: Colors.white,
           ),
-          onPressed: () {
-            //print(_acrCurrent.toString());
-            //time();
-          },
+          onPressed: () {},
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-
-  Color coloring(int index, double acrCurrent) {
-    if (acrCurrent < acr[index]) {
-      return Colors.blue;
-    } else {
-      return Colors.red;
-    }
-  }
-
-  Text time() {
-    return Text("Data as of " + _currentDate,
-        style: TextStyle(fontSize: 12.0, fontFamily: "Montserrat-Medium"));
-  }
-
-//  detailsPage() {
-//    {
-//      Navigator.push(
-//          context,
-//          MaterialPageRoute(
-//            builder: (context) => NavDrawer(
-//              item: 'Occupancy',
-//            ),
-//          ));
-//
-////                          Navigator.pushNamed(context, '/pageMassSegment');
-//    }
-//  }
 }
