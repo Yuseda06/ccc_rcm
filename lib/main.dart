@@ -1,3 +1,9 @@
+import 'package:ccc_rcm/screen/LineChart.dart';
+import 'package:ccc_rcm/screen/LineChartSample1.dart';
+import 'package:ccc_rcm/screen/LineChartScreen.dart';
+import 'package:ccc_rcm/screen/LineGraph.dart';
+import 'package:ccc_rcm/screen/MalaysiaStatus.dart';
+import 'package:ccc_rcm/screen/SalesHomePage.dart';
 import 'package:ccc_rcm/screen/queueDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,7 +17,9 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/screen1': (BuildContext context) => new MyApp(),
-        '/screen2': (BuildContext context) => new QueueDetails()
+        '/screen2': (BuildContext context) => new QueueDetails(),
+        '/screen3': (BuildContext context) => new MalaysiaStatus(),
+        '/screen4': (BuildContext context) => new SalesHomePage()
       },
     ));
 
@@ -35,9 +43,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+//      DeviceOrientation.landscapeRight,
+      DeviceOrientation.portraitUp,
+    ]);
   }
 
   Widget _buildGradientContainer(double width, double height) {
+
+
     return Align(
       alignment: Alignment.topRight,
       child: Container(
@@ -389,17 +403,23 @@ class _MyAppState extends State<MyApp> {
                 iconSize: 30.0,
                 icon: Icon(Icons.access_alarms, color: Colors.black54),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/screen2');
+                  Navigator.of(context).pushNamed('/screen3');
                 },
               ),
               title: Container(
                 height: 0.0,
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline),
+              icon: IconButton(
+                iconSize: 30.0,
+                icon: Icon(Icons.access_alarms, color: Colors.black54),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/screen4');
+                },
+              ),
               title: Container(
                 height: 0.0,
-              ))
+              )),
         ],
       ),
       floatingActionButton: Container(

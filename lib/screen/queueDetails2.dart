@@ -28,6 +28,8 @@ class _QueueDetailsState extends State<QueueDetails> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
