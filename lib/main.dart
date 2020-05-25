@@ -1,3 +1,4 @@
+import 'package:ccc_rcm/screen/BezilChart.dart';
 import 'package:ccc_rcm/screen/LineChart.dart';
 import 'package:ccc_rcm/screen/LineChartSample1.dart';
 import 'package:ccc_rcm/screen/LineChartScreen.dart';
@@ -19,7 +20,7 @@ void main() => runApp(MaterialApp(
         '/screen1': (BuildContext context) => new MyApp(),
         '/screen2': (BuildContext context) => new QueueDetails(),
         '/screen3': (BuildContext context) => new MalaysiaStatus(),
-        '/screen4': (BuildContext context) => new SalesHomePage()
+        '/screen4': (BuildContext context) => new BezilChart()
       },
     ));
 
